@@ -23,7 +23,7 @@ d2 = data["features"][0]
 # Extract data from JSON file
 d3 = pd.json_normalize(data, record_path=['features'])
 base = d3.loc[:, ["properties.NeighName", 'properties.avg_d_mbps']]
-base.columns = ["NeighName", "avg_d_mbps"]  # change column name
+base.columns = ["NeighName", "Avg Mbps"]  # change column name
 
 # Function to generate drop-down list (Neighborhood names)
 
@@ -50,9 +50,9 @@ reset_data = html.A(html.Button('Click Here to Reset Map',
                                     "top": "825px",
                                     "left": "760.5px",
                                     "right": "842.5px",
-                                    "backgroundColor": "grey",
+                                    "backgroundColor": "white",
                                     "color": "black",
-                                    "width": "170px",
+                                    "width": "175px",
                                     "borderRadius": "1vw",
                                     "display": "block",
                                 }
