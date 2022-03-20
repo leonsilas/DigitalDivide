@@ -136,6 +136,16 @@ image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
                                         "display": "block",
                                  })
 
+# Background image
+
+BGimage = html.Img(src=app.get_asset_url('orlando-981748_1920.jpg'), style={
+                                         "alignment": "center",
+                                         "bottom": "0px",
+                                         "opacity": "25%",
+                                         "position": "fixed",
+                                         "width": "100%",
+                                         "height": "auto"
+                                 })
 # ---Quarter Drop Down element
 
 drop_down = html.Div([
@@ -159,7 +169,8 @@ drop_down = html.Div([
         searchable=True,
         placeholder="Select a Quarter from drop-down",
                     style={"margin": "10px,0,10px,0",
-                           "width": "200px", "color": "grey"},
+                            "width": "200px", "color": "grey",
+                           "font-family": "Trebuchet MS"},
     )],
     style={
     "borderColor": "black",
@@ -184,7 +195,8 @@ speed = html.Div([
         style={
             "marginLeft": "10px",
             "width": "200px",
-            "color": "grey"
+            "color": "grey",
+            "font-family": "Trebuchet MS"
         },
     )],
     style={
@@ -260,7 +272,9 @@ container_0 = html.Div([
 # Last updated element
 
 Last_updated = html.Div(
-    id='date', style={"display": "inline", "marginLeft": "50px"})
+    id='date', style={"display": "inline", 
+                      "marginLeft": "50px",
+                      "font-family": "Trebuchet MS"})
 
 
 
@@ -270,6 +284,7 @@ Last_updated = html.Div(
 
 container_1 = html.Div([
     html.Div([
+        BGimage,
         banner,
         html.Br(),
         html.Br(),
