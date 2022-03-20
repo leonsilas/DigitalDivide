@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import dash
-
 from dash import html
 from dash import dcc
 import plotly.express as px
@@ -62,29 +61,42 @@ reset_data = html.A(html.Button('Click Here to Reset Map',
 # Banner with titles and reset button
 banner = html.Div([
     html.H3(["The Digital Divide"],
+            className="titleName",
             style={
-            "text-align": "center",
+            "position": "relative",
+            "text-align": "left",
             "fontSize": "30pt",
             "color": "white",
+            "left": "80",
             }
             ),  # ------- First Title
     html.H3(["A comprehensive look at the internet speeds throughout Orlando, Florida and its city districts."],
+            className="titleDescription",
             style={
             "text-align": "center",
             "fontSize": "25pt",
             "font-family": "Trebuchet MS",
             "color": "white",
+            "right": "-100",
             }
-            ),  # -----------Second Title
+            ),
+    html.Button("Light Mode", className="colorButton",            
+                style={
+                    "position": "relative",
+                    "float": "right",
+                }
+                ),  # -----------Second Title
 
     reset_data  # -----Reset button
 
 ],
-
+id="headerDiv",
     style={
-        "position": "absolute",
-        "top": "0px",
-        "width": "1899px",
+        "position": "relative",
+        "overflow": "hidden",
+        "top": "0",
+        "left": "0",
+        "right": "0",        
         "backgroundColor": "#22303C",
 }
 )
@@ -286,12 +298,16 @@ container_1 = html.Div([
         "left": "0px",
         "right": "0px",
         "bottom": "0px",
-        "width": "1899px",
+        "width": "100%",
         "height": "2200px",
         "backgroundColor": "#15202B",
         "margin": "0",
         "padding": "0"
-    }),
+    },
+    id = "bodyBackgroundColor"
+    ),
+
+    
 ])
 
 # Final Layout
