@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import dash
-
 from dash import html
 from dash import dcc
 import plotly.express as px
@@ -23,7 +22,7 @@ d2 = data["features"][0]
 # Extract data from JSON file
 d3 = pd.json_normalize(data, record_path=['features'])
 base = d3.loc[:, ["properties.NeighName", 'properties.avg_d_mbps']]
-base.columns = ["NeighName", "avg_d_mbps"]  # change column name
+base.columns = ["NeighName", "Avg Mbps"]  # change column name
 
 # Function to generate drop-down list (Neighborhood names)
 
@@ -50,9 +49,9 @@ reset_data = html.A(html.Button('Click Here to Reset Map',
                                     "top": "825px",
                                     "left": "760.5px",
                                     "right": "842.5px",
-                                    "backgroundColor": "grey",
+                                    "backgroundColor": "white",
                                     "color": "black",
-                                    "width": "170px",
+                                    "width": "175px",
                                     "borderRadius": "1vw",
                                     "display": "block",
                                 }
@@ -62,29 +61,42 @@ reset_data = html.A(html.Button('Click Here to Reset Map',
 # Banner with titles and reset button
 banner = html.Div([
     html.H3(["The Digital Divide"],
+            className="titleName",
             style={
-            "text-align": "center",
+            "position": "relative",
+            "text-align": "left",
             "fontSize": "30pt",
             "color": "white",
+            "left": "80",
             }
             ),  # ------- First Title
     html.H3(["A comprehensive look at the internet speeds throughout Orlando, Florida and its city districts."],
+            className="titleDescription",
             style={
             "text-align": "center",
             "fontSize": "25pt",
             "font-family": "Trebuchet MS",
             "color": "white",
+            "right": "-100",
             }
-            ),  # -----------Second Title
+            ),
+    html.Button("Light Mode", className="colorButton",            
+                style={
+                    "position": "relative",
+                    "float": "right",
+                }
+                ),  # -----------Second Title
 
     reset_data  # -----Reset button
 
 ],
-
+id="headerDiv",
     style={
-        "position": "absolute",
-        "top": "0px",
-        "width": "1899px",
+        "position": "relative",
+        "overflow": "hidden",
+        "top": "0",
+        "left": "0",
+        "right": "0",        
         "backgroundColor": "#22303C",
 }
 )
@@ -124,6 +136,16 @@ image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
                                         "display": "block",
                                  })
 
+# Background image
+
+BGimage = html.Img(src=app.get_asset_url('orlando-981748_1920.jpg'), style={
+                                         "alignment": "center",
+                                         "bottom": "0px",
+                                         "opacity": "25%",
+                                         "position": "fixed",
+                                         "width": "100%",
+                                         "height": "auto"
+                                 })
 # ---Quarter Drop Down element
 
 drop_down = html.Div([
@@ -147,7 +169,8 @@ drop_down = html.Div([
         searchable=True,
         placeholder="Select a Quarter from drop-down",
                     style={"margin": "10px,0,10px,0",
-                           "width": "200px", "color": "grey"},
+                            "width": "200px", "color": "grey",
+                           "font-family": "Trebuchet MS"},
     )],
     style={
     "borderColor": "black",
@@ -172,7 +195,8 @@ speed = html.Div([
         style={
             "marginLeft": "10px",
             "width": "200px",
-            "color": "grey"
+            "color": "grey",
+            "font-family": "Trebuchet MS"
         },
     )],
     style={
@@ -248,7 +272,9 @@ container_0 = html.Div([
 # Last updated element
 
 Last_updated = html.Div(
-    id='date', style={"display": "inline", "marginLeft": "50px"})
+    id='date', style={"display": "inline", 
+                      "marginLeft": "50px",
+                      "font-family": "Trebuchet MS"})
 
 
 
@@ -258,6 +284,7 @@ Last_updated = html.Div(
 
 container_1 = html.Div([
     html.Div([
+        BGimage,
         banner,
         html.Br(),
         html.Br(),
@@ -286,12 +313,16 @@ container_1 = html.Div([
         "left": "0px",
         "right": "0px",
         "bottom": "0px",
-        "width": "1899px",
+        "width": "100%",
         "height": "2200px",
         "backgroundColor": "#15202B",
         "margin": "0",
         "padding": "0"
-    }),
+    },
+    id = "bodyBackgroundColor"
+    ),
+
+    
 ])
 
 # Final Layout
