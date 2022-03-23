@@ -66,7 +66,7 @@ banner = html.Div([
             "position": "relative",
             "text-align": "left",
             "fontSize": "30pt",
-            "color": "white",
+            "color": "#8f9daa",
             "left": "80",
             }
             ),  # ------- First Title
@@ -76,16 +76,16 @@ banner = html.Div([
             "text-align": "center",
             "fontSize": "25pt",
             "font-family": "Trebuchet MS",
-            "color": "white",
+            "color": "#8f9daa",
             "right": "-100",
             }
-            ),
+            ),  # -----------Second Title
     html.Button("Light Mode", className="colorButton",            
                 style={
                     "position": "relative",
                     "float": "right",
                 }
-                ),  # -----------Second Title
+                ),
 
     reset_data  # -----Reset button
 
@@ -97,7 +97,7 @@ id="headerDiv",
         "top": "0",
         "left": "0",
         "right": "0",        
-        "backgroundColor": "#22303C",
+        "backgroundColor": "#1d2b37",
 }
 )
 
@@ -219,7 +219,7 @@ NeighHood_names = html.Div([
             "width": "200px",
             "color": "grey",
             "marginLeft": "10px",
-            "font-size": "10pt",
+            "font-family": "Trebuchet MS"
         },
     )
 ],
@@ -269,11 +269,13 @@ container_0 = html.Div([
 
 })
 
-# Last updated element
+# Last updated element 
 
 Last_updated = html.Div(
-    id='date', style={"display": "inline", 
+    id='date', style={"position": "absolute",
                       "marginLeft": "50px",
+                      "marginTop": "10px",
+                      "color": "#8f9daa",
                       "font-family": "Trebuchet MS"})
 
 
@@ -286,6 +288,7 @@ container_1 = html.Div([
     html.Div([
         BGimage,
         banner,
+        Last_updated,
         html.Br(),
         html.Br(),
         html.Br(),
@@ -300,7 +303,6 @@ container_1 = html.Div([
         html.Br(),
         html.Br(),
         html.Br(),
-        Last_updated,
         image,
         image2,
         image3,
