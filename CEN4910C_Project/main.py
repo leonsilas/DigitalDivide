@@ -58,26 +58,39 @@ reset_data = html.A(html.Button('Click Here to Reset Map',
 
                                 ), href='/')
 
+# Logo image
+
+logo = html.Img(src=app.get_asset_url('DigitalDivide_logo_320x240.png'), style={
+                                      "position": "absolute",
+                                      "top": "-40px",
+                                      "height": "180px",
+                                      "opacity": "67%"
+                                 })
+
 # Banner with titles and reset button
 banner = html.Div([
-    html.H3(["The Digital Divide"],
+    html.H3(#["The Digital Divide"],
+            logo,
             className="titleName",
             style={
             "position": "relative",
-            "text-align": "left",
-            "fontSize": "30pt",
-            "color": "#8f9daa",
-            "left": "80",
+            #"text-align": "left",
+            #"fontSize": "30pt",
+            #"color": "#8f9daa",
+            "left": "60",
             }
             ),  # ------- First Title
     html.H3(["A comprehensive look at the internet speeds throughout Orlando, Florida and its city districts."],
             className="titleDescription",
             style={
-            "text-align": "center",
+            #"text-align": "right",
+            "position": "relative",
+            "left": "256px",
+            "top": "10px",
             "fontSize": "25pt",
             "font-family": "Trebuchet MS",
             "color": "#8f9daa",
-            "right": "-100",
+            "max-width": "80%"
             }
             ),  # -----------Second Title
     html.Button("Light Mode", className="colorButton",            
