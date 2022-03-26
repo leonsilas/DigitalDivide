@@ -97,6 +97,7 @@ banner = html.Div([
                 style={
                     "position": "relative",
                     "float": "right",
+                    "font-family": "Trebuchet MS"
                 }
                 ),
 
@@ -287,6 +288,7 @@ container_0 = html.Div([
 Last_updated = html.Div(
     id='date', style={"position": "absolute",
                       "marginLeft": "50px",
+                      "display": "none",
                       "marginTop": "10px",
                       "color": "#8f9daa",
                       "font-family": "Trebuchet MS"})
