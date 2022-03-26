@@ -274,7 +274,7 @@ container_0 = html.Div([
 
 Last_updated = html.Div(
     id='date', style={"position": "absolute",
-                      "marginLeft": "50px",
+                      "marginLeft": "-500px",
                       "marginTop": "10px",
                       "color": "#8f9daa",
                       "font-family": "Trebuchet MS"})
