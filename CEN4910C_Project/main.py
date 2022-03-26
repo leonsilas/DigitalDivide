@@ -84,6 +84,7 @@ banner = html.Div([
                 style={
                     "position": "relative",
                     "float": "right",
+                    "font-family": "Trebuchet MS"
                 }
                 ),
 
