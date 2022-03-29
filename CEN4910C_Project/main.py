@@ -103,7 +103,7 @@ id="headerDiv",
 
 # images of graphs
 
-image = html.Img(src=app.get_asset_url('up.png'), style={
+image = html.Img(src=app.get_asset_url('upSpeed.png'), style={
                                     "position": "absolute",
                                     "left": "600.5px",
                                     "right": "842.5px",
@@ -111,7 +111,7 @@ image = html.Img(src=app.get_asset_url('up.png'), style={
                                     "borderRadius": "1vw",
                                     "display": "block",
                                 })
-image2 = html.Img(src=app.get_asset_url('down.png'), style={
+image2 = html.Img(src=app.get_asset_url('downSpeed.png'), style={
                                      "position": "absolute",
                                      "left": "583.5px",
                                      "right": "842.5px",
@@ -119,7 +119,7 @@ image2 = html.Img(src=app.get_asset_url('down.png'), style={
                                      "borderRadius": "1vw",
                                      "display": "block",
                                  })
-image3 = html.Img(src=app.get_asset_url('highinc.png'), style={
+image3 = html.Img(src=app.get_asset_url('highIncome.png'), style={
                                      "position": "absolute",
                                      "left": "600.5px",
                                      "right": "842.5px",
@@ -127,7 +127,7 @@ image3 = html.Img(src=app.get_asset_url('highinc.png'), style={
                                      "borderRadius": "1vw",
                                      "display": "block",
                                  })
-image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
+image4 = html.Img(src=app.get_asset_url('lowIncome.png'), style={
                                         "position": "absolute",
                                         "left": "600.5px",
                                         "right": "842.5px",
@@ -138,7 +138,7 @@ image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
 
 # Background image
 
-BGimage = html.Img(src=app.get_asset_url('orlando-981748_1920.jpg'), style={
+BGimage = html.Img(src=app.get_asset_url('orlando-cityscape.jpg'), style={
                                          "alignment": "center",
                                          "bottom": "0px",
                                          "opacity": "25%",
