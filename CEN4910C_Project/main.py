@@ -69,14 +69,10 @@ logo = html.Img(src=app.get_asset_url('DigitalDivide_logo_320x240.png'), style={
 
 # Banner with titles and reset button
 banner = html.Div([
-    html.H3(#["The Digital Divide"],
-            logo,
+    html.H3(logo,
             className="titleName",
             style={
             "position": "relative",
-            #"text-align": "left",
-            #"fontSize": "30pt",
-            #"color": "#8f9daa",
             "left": "60",
             }
             ),  # ------- First Title
@@ -87,9 +83,11 @@ banner = html.Div([
             "position": "relative",
             "left": "256px",
             "top": "10px",
+            "marginRight": "300px",
             "fontSize": "25pt",
             "font-family": "Trebuchet MS",
-            "color": "#8f9daa",
+            "color": "white",
+            "opacity": "67%",
             "max-width": "80%"
             }
             ),  # -----------Second Title
@@ -265,8 +263,37 @@ Last_updated = html.Div(
                       "marginLeft": "50px",
                       "display": "none",
                       "marginTop": "10px",
-                      "color": "#8f9daa",
+                      "color": "white",
+                      "opacity": "67%",
                       "font-family": "Trebuchet MS"})
+
+
+# Graphs link
+graphs = html.H3(["VIEW GRAPHS"],
+                 className="graphsLink",
+                 style={
+                 "position": "relative",
+                 "top": "160px",
+                 "width": "100%",
+                 "textAlign": "center",
+                 "fontSize": "25pt",
+                 "font-family": "Trebuchet MS",
+                 "color": "white",
+                 "opacity": "67%",
+                 })
+
+# Home link
+home = html.H3(["BACK"],
+               className="homeLink",
+               style={
+               "position": "relative",
+               "width": "100%",
+               "textAlign": "center",
+               "fontSize": "25pt",
+               "font-family": "Trebuchet MS",
+               "color": "white",
+               "opacity": "67%",
+               })
 
 
 
@@ -274,7 +301,7 @@ Last_updated = html.Div(
 
 # Final layout container with graphs and other elements
 
-container_2 = html.Div([
+container_1 = html.Div([
     html.Div([
         BGimage,
         banner,
@@ -284,39 +311,7 @@ container_2 = html.Div([
         html.Br(),
         container_0,
         final_map,
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        image,
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        image2,
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        image3,
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        image4
+        dcc.Link(graphs, href='/graphs'),
 
     ],
         style={
@@ -326,7 +321,44 @@ container_2 = html.Div([
         "right": "0px",
         "bottom": "0px",
         "width": "100%",
-        "height": "2400px",
+        "backgroundColor": "#15202B",
+        "margin": "0",
+        "padding": "0"
+    },
+    id = "bodyBackgroundColor"
+    ),
+
+    
+])
+
+container_2 = html.Div([
+    html.Div([
+        BGimage,
+        banner,
+        Last_updated,
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        image,
+        html.Br(),
+        image2,
+        html.Br(),
+        image3,
+        html.Br(),
+        image4,
+        html.Br(),
+        dcc.Link(home, href='/'),
+        html.Br(),
+
+    ],
+        style={
+        "position": "absolute",
+        "top": "0px",
+        "left": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "width": "100%",
+        "height": "1607px",
         "backgroundColor": "#15202B",
         "margin": "0",
         "padding": "0"
@@ -338,7 +370,26 @@ container_2 = html.Div([
 ])
 
 # Final Layout
-app.layout = html.Div([container_2])
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),
+    html.Div(id='page-content')
+])
+
+home_page = html.Div([container_1])
+
+graphs_layout = html.Div([container_2])
+
+@app.callback(Output('graphs-content', 'children'),
+                  [Input('url', 'pathname')])
+
+@app.callback(Output('page-content', 'children'),
+              [Input('url', 'pathname')])
+def display_page(pathname):
+    if pathname == '/graphs':
+        return graphs_layout
+    else:
+        return home_page
+
 
 # App callback
 @app.callback(
