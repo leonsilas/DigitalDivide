@@ -119,21 +119,29 @@ image = html.Img(src=app.get_asset_url('up.png'), style={
                                     "margin": "0 auto",
                                     "display": "block",
                                     "borderRadius": "1vw",
+                                    "position": "relative",
+                                    "zIndex": "999",
                                 })
 image2 = html.Img(src=app.get_asset_url('down.png'), style={
                                      "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
+                                     "position": "relative",
+                                     "zIndex": "999",
                                  })
 image3 = html.Img(src=app.get_asset_url('highinc.png'), style={
                                      "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
+                                     "position": "relative",
+                                     "zIndex": "999",
                                  })
 image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
                                         "margin": "0 auto",
                                         "borderRadius": "1vw",
                                         "display": "block",
+                                        "position": "relative",
+                                        "zIndex": "999",
                                  })
 
 # Background image
@@ -144,7 +152,8 @@ BGimage = html.Img(src=app.get_asset_url('orlando-981748_1920.jpg'), style={
                                          "opacity": "25%",
                                          "position": "fixed",
                                          "width": "100%",
-                                         "height": "auto"
+                                         "height": "auto",
+                                         "zIndex": "0",
                                  })
 # ---Quarter Drop Down element
 
@@ -252,7 +261,9 @@ container_0 = html.Div([
     "paddingTop": "20px",
     "paddingBottom": "20px",
     "border-width": "thick thick thick thick",
-    "margin": "0 auto"
+    "margin": "0 auto",
+    "position": "relative",
+    "zIndex": "999",
 })
 
 
