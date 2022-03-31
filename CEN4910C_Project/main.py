@@ -118,34 +118,22 @@ id="headerDiv",
 # images of graphs
 
 image = html.Img(src=app.get_asset_url('up.png'), style={
-                                    "position": "absolute",
-                                    "left": "600.5px",
-                                    "right": "842.5px",
-                                    "top": "860px",
-                                    "borderRadius": "1vw",
+                                    "margin": "0 auto",
                                     "display": "block",
+                                    "borderRadius": "1vw",
                                 })
 image2 = html.Img(src=app.get_asset_url('down.png'), style={
-                                     "position": "absolute",
-                                     "left": "583.5px",
-                                     "right": "842.5px",
-                                     "top": "1150px",
+                                     "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
                                  })
 image3 = html.Img(src=app.get_asset_url('highinc.png'), style={
-                                     "position": "absolute",
-                                     "left": "600.5px",
-                                     "right": "842.5px",
-                                     "top": "1440px",
+                                     "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
                                  })
 image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
-                                        "position": "absolute",
-                                        "left": "600.5px",
-                                        "right": "842.5px",
-                                        "top": "1780px",
+                                        "margin": "0 auto",
                                         "borderRadius": "1vw",
                                         "display": "block",
                                  })
@@ -183,13 +171,12 @@ drop_down = html.Div([
         searchable=True,
         placeholder="Select a Quarter from drop-down",
                     style={"margin": "10px,0,10px,0",
-                            "width": "200px", "color": "grey",
+                            "width": "210px", "color": "grey",
                            "font-family": "Trebuchet MS"},
     )],
     style={
     "borderColor": "black",
     "display": "inline-block",
-    "marginLeft": "50px"
 },
 )
 
@@ -207,8 +194,7 @@ speed = html.Div([
         searchable=True,
         placeholder="Upload/Download Select",
         style={
-            "marginLeft": "10px",
-            "width": "200px",
+            "width": "210px",
             "color": "grey",
             "font-family": "Trebuchet MS"
         },
@@ -216,7 +202,6 @@ speed = html.Div([
     style={
     "borderColor": "black",
     "display": "inline-block",
-    "marginLeft": "50px"
 },
 )
 
@@ -230,9 +215,8 @@ NeighHood_names = html.Div([
         searchable=True,
         placeholder="Select neighborhood",
         style={
-            "width": "200px",
+            "width": "210px",
             "color": "grey",
-            "marginLeft": "10px",
             "font-family": "Trebuchet MS"
         },
     )
@@ -240,7 +224,6 @@ NeighHood_names = html.Div([
     style={
     "borderColor": "red",
     "display": "inline-block",
-    "marginLeft": "100px"
 })
 
 
@@ -249,14 +232,10 @@ NeighHood_names = html.Div([
 final_map = html.Div([dcc.Graph(id="map")],
                      style={
 
-
-    "position": "absolute",
-    "top": "354px",
-    "left": "387.5px",
-    "right": "387.5px",
+   #"display": "none",
     "width": "910px",
     "height": "300px",
-    "display": "inline-block"
+    "margin": "0 auto"    
 
 })
 
@@ -266,22 +245,18 @@ final_map = html.Div([dcc.Graph(id="map")],
 container_0 = html.Div([
     NeighHood_names,
     drop_down, speed,
-    html.Br()
 ],
     style={
-    "position": "absolute",
-    "top": "274px",
-    "left": "338px",
-    "right": "295px",
+    "display": "flex",
+    "justify-content": "space-around",
     "width": "911px",
     "backgroundColor": "#192734",
     "paddingTop": "20px",
     "paddingBottom": "20px",
     "border-width": "thick thick thick thick",
-    "display": "inline-block",
-    "marginLeft": "50px",
-
+    "margin": "0 auto"
 })
+
 
 # Last updated element 
 
@@ -299,7 +274,7 @@ Last_updated = html.Div(
 
 # Final layout container with graphs and other elements
 
-container_1 = html.Div([
+container_2 = html.Div([
     html.Div([
         BGimage,
         banner,
@@ -318,9 +293,29 @@ container_1 = html.Div([
         html.Br(),
         html.Br(),
         html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
         image,
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
         image2,
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
         image3,
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
         image4
 
     ],
@@ -331,7 +326,7 @@ container_1 = html.Div([
         "right": "0px",
         "bottom": "0px",
         "width": "100%",
-        "height": "2200px",
+        "height": "2400px",
         "backgroundColor": "#15202B",
         "margin": "0",
         "padding": "0"
@@ -343,7 +338,7 @@ container_1 = html.Div([
 ])
 
 # Final Layout
-app.layout = html.Div([container_1])
+app.layout = html.Div([container_2])
 
 # App callback
 @app.callback(
