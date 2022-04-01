@@ -433,4 +433,4 @@ def update_map(qrt, name, int_speed):
     return fig, dt
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, dev_tools_ui=False)
