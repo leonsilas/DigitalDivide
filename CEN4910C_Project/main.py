@@ -432,5 +432,7 @@ def update_map(qrt, name, int_speed):
 
     return fig, dt
 
+app.title = "Digital Divide"
+
 if __name__ == '__main__':
     app.run_server(debug=True, dev_tools_ui=False)
