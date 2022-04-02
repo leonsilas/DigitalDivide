@@ -151,7 +151,7 @@ BGimage = html.Img(src=app.get_asset_url('orlando-981748_1920.jpg'), style={
                                          "bottom": "0px",
                                          "opacity": "25%",
                                          "position": "fixed",
-                                         "width": "100%",
+                                         "min-height": "100%",
                                          "height": "auto",
                                          "zIndex": "0",
                                  })
