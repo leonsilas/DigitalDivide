@@ -69,7 +69,7 @@ logo = html.Img(src=app.get_asset_url('DigitalDivide_logo_320x240.png'), style={
 
 # Banner with titles and reset button
 banner = html.Div([
-    html.H3(logo,
+    html.H3(dcc.Link(logo, href='/'),
             className="titleName",
             style={
             "position": "relative",
