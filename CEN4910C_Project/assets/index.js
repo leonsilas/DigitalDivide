@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    setTimeout(modeSwitch, 2000)
+    setTimeout(modeSwitch, 1000)
 });
 
 function modeSwitch() {

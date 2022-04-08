@@ -239,8 +239,7 @@ NeighHood_names = html.Div([
 final_map = html.Div([dcc.Graph(id="map")],
                      style={
 
-   #"display": "none",
-    "width": "910px",
+    "width": "911px",
     "height": "300px",
     "margin": "0 auto"    
 
@@ -262,10 +261,20 @@ container_0 = html.Div([
     "paddingBottom": "20px",
     "border-width": "thick thick thick thick",
     "margin": "0 auto",
-    "position": "relative",
+    "position": "relative", # keeps background color intact 
     "zIndex": "999",
 })
 
+container_3 = html.Div([
+    image, image2, image3, image4
+],
+    style={
+    "display": "flex",
+    "flex-direction": "column",
+    "row-gap": "30px",
+    "margin": "50px",
+    "zIndex": "999",
+})
 
 # Last updated element 
 
@@ -338,26 +347,13 @@ container_1 = html.Div([
     },
     id = "bodyBackgroundColor"
     ),
-
-    
 ])
 
 container_2 = html.Div([
     html.Div([
         BGimage,
         banner,
-        Last_updated,
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        image,
-        html.Br(),
-        image2,
-        html.Br(),
-        image3,
-        html.Br(),
-        image4,
-        html.Br(),
+        container_3,
         dcc.Link(home, href='/'),
         html.Br(),
 
@@ -376,9 +372,9 @@ container_2 = html.Div([
     },
     id = "bodyBackgroundColor"
     ),
-
-    
 ])
+
+
 
 # Final Layout
 app.layout = html.Div([
@@ -433,6 +429,6 @@ def update_map(qrt, name, int_speed):
     return fig, dt
 
 app.title = "Digital Divide"
-
+# app._favicon = ("path_to_folder/your_icon.ico")
 if __name__ == '__main__':
     app.run_server(debug=True, dev_tools_ui=False)
