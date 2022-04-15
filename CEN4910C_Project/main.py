@@ -9,6 +9,7 @@ import pandas as pd
 from dash.dependencies import Input, Output, State
 import json
 from datetime import datetime
+from waitress import serve
 
 # System Date and Time
 now = datetime.now()
@@ -432,3 +433,4 @@ app.title = "Digital Divide"
 # app._favicon = ("path_to_folder/your_icon.ico")
 if __name__ == '__main__':
     app.run_server(debug=True, dev_tools_ui=False)
+    serve(app)
