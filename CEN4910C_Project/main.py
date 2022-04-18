@@ -9,11 +9,14 @@ import pandas as pd
 from dash.dependencies import Input, Output, State
 import json
 from datetime import datetime
+from waitress import serve
+
 import os
 
 
 #Choropleth color options Changes Here
 colorscales = px.colors.named_colorscales()
+
 
 # System Date and Time
 now = datetime.now()
@@ -454,3 +457,4 @@ def update_map(qrt, name, int_speed, colors):
 
 if __name__ == '__main__':
     app.run_server(debug=True, dev_tools_ui=False)
+    serve(app)
