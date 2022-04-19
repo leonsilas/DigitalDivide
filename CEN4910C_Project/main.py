@@ -48,7 +48,11 @@ def Neigh_names():
 # ----------Dash App---------------------------------------
 
 app = dash.Dash(__name__)
+app.title = "Digital Divide" # set the app title in the browser tab
 
+# a favicon is the 16x16px icon displayed in the browser tab
+# Orlando's fountain icon may only be used with permission from the city
+# app._favicon = ("path_to/icon.ico")
 
 # reset button
 reset_data = html.A(html.Button('Click Here to Reset Map',
