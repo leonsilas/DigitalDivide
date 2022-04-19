@@ -11,12 +11,19 @@ import json
 from datetime import datetime
 from waitress import serve
 
+import os
+
+
+#Choropleth color options Changes Here
+colorscales = px.colors.named_colorscales()
+
+
 # System Date and Time
 now = datetime.now()
 dt = now.strftime("%d/%m/%Y %H:%M:%S")
 
 # Read geojson files
-d1 = open(r"backend_resources\results\orlando_averaged_2019-01-01.geojson")
+d1 = open(r"backend_resources/results/orlando_averaged_2019-01-01.geojson")
 data = json.load(d1)
 d2 = data["features"][0]
 
@@ -116,7 +123,7 @@ id="headerDiv",
 
 # images of graphs
 
-image = html.Img(src=app.get_asset_url('up.png'), style={
+image = html.Img(src='assets/up.png', style={
                                     "margin": "0 auto",
                                     "display": "block",
                                     "borderRadius": "1vw",
@@ -153,9 +160,9 @@ BGimage = html.Img(src=app.get_asset_url('orlando-981748_1920.jpg'), style={
                                          "opacity": "25%",
                                          "position": "fixed",
                                          "min-height": "100%",
-                                         "height": "auto",
                                          "zIndex": "0",
                                  })
+
 # ---Quarter Drop Down element
 
 drop_down = html.Div([
@@ -179,7 +186,7 @@ drop_down = html.Div([
         searchable=True,
         placeholder="Select a Quarter from drop-down",
                     style={"margin": "10px,0,10px,0",
-                            "width": "210px", "color": "grey",
+                            "width": "190px", "color": "grey",
                            "font-family": "Trebuchet MS"},
     )],
     style={
@@ -187,7 +194,20 @@ drop_down = html.Div([
     "display": "inline-block",
 },
 )
-
+#Changes Here
+colors = html.Div([
+    dcc.Dropdown(
+        id="colors",
+        options=colorscales,
+        value='tempo',
+        style={
+            "width": "190px",
+            "color": "grey",
+            "font-family": "Trebuchet MS"
+        },
+        placeholder="Colors"
+    )
+])
 # Download and Upload speed dropdown element
 speed = html.Div([
     dcc.Dropdown(
@@ -202,7 +222,7 @@ speed = html.Div([
         searchable=True,
         placeholder="Upload/Download Select",
         style={
-            "width": "210px",
+            "width": "190px",
             "color": "grey",
             "font-family": "Trebuchet MS"
         },
@@ -223,7 +243,7 @@ NeighHood_names = html.Div([
         searchable=True,
         placeholder="Select neighborhood",
         style={
-            "width": "210px",
+            "width": "190px",
             "color": "grey",
             "font-family": "Trebuchet MS"
         },
@@ -251,20 +271,22 @@ final_map = html.Div([dcc.Graph(id="map")],
 
 container_0 = html.Div([
     NeighHood_names,
-    drop_down, speed,
+    drop_down, speed,colors #Changes Here
 ],
     style={
     "display": "flex",
-    "justify-content": "space-around",
+    "justify-content": "space-evenly",
     "width": "911px",
     "backgroundColor": "#192734",
     "paddingTop": "20px",
     "paddingBottom": "20px",
     "border-width": "thick thick thick thick",
     "margin": "0 auto",
-    "position": "relative", # keeps background color intact 
+    "position": "relative", # keeps background color intact
     "zIndex": "999",
-})
+    },
+    id="heatMap"
+    )
 
 container_3 = html.Div([
     image, image2, image3, image4
@@ -276,6 +298,7 @@ container_3 = html.Div([
     "margin": "50px",
     "zIndex": "999",
 })
+
 
 # Last updated element 
 
@@ -348,6 +371,8 @@ container_1 = html.Div([
     },
     id = "bodyBackgroundColor"
     ),
+
+    
 ])
 
 container_2 = html.Div([
@@ -373,9 +398,9 @@ container_2 = html.Div([
     },
     id = "bodyBackgroundColor"
     ),
+
+    
 ])
-
-
 
 # Final Layout
 app.layout = html.Div([
@@ -402,12 +427,12 @@ def display_page(pathname):
 # App callback
 @app.callback(
     [Output('map', "figure"), Output('date', "children")],
-    [Input('time', 'value'), Input("Neigh_names",
-                                   "value"), Input("internet", "value")],
+    [Input('time', 'value'), Input("Neigh_names",                        #Changes Here
+                                   "value"), Input("internet", "value"), Input("colors", "value")],
     prevent_initial_callbacks=True
 )
 # call back function
-def update_map(qrt, name, int_speed):
+def update_map(qrt, name, int_speed, colors):
     d1 = open(r"backend_resources\results\orlando_averaged_" + qrt + ".geojson")
     data = json.load(d1)
     base = pd.json_normalize(data, record_path=['features'])
@@ -419,7 +444,7 @@ def update_map(qrt, name, int_speed):
     # Plotly Choropleth Graph
     fig = px.choropleth_mapbox(base, geojson=data, locations="NeighName", color=int_speed, featureidkey="properties.NeighName",
                                center={"lat": 28.488137, "lon": -81.331054},
-                               color_continuous_scale="tempo",
+                               color_continuous_scale=colors, #Changes Here
                                mapbox_style="carto-positron", zoom=10)
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
@@ -429,8 +454,6 @@ def update_map(qrt, name, int_speed):
 
     return fig, dt
 
-app.title = "Digital Divide"
-# app._favicon = ("path_to_folder/your_icon.ico")
 if __name__ == '__main__':
     app.run_server(debug=True, dev_tools_ui=False)
     serve(app)
