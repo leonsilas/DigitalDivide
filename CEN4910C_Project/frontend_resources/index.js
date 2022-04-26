@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", function(){
     setTimeout(modeSwitch, 2000)
 });
 
-var heatMapHeader = document.getElementById('heatMap'); //Changes Here
-
 function modeSwitch() {
     var colorBotton = document.querySelector('.colorButton');
     console.log("Loaded");
@@ -12,6 +10,7 @@ function modeSwitch() {
         var headerDiv = document.getElementById('headerDiv');
         var bodyColor = document.getElementById('bodyBackgroundColor');
         var banner = document.getElementsByName('banner');
+        var heatMapHeader = document.getElementById('heatMap'); //Changes Here
         if(colorBotton.innerHTML == "Light Mode"){
             colorBotton.innerHTML = "Dark Mode";
             headerDiv.style.backgroundColor= "#1fb8a8";
