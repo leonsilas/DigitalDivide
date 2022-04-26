@@ -1,1 +1,2 @@
+#LargeFileStructure for backEnd assets
 *.zip filter=lfs diff=lfs merge=lfs -text

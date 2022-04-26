@@ -127,28 +127,28 @@ id="headerDiv",
 
 # images of graphs
 
-image = html.Img(src='assets/up.png', style={
+image = html.Img(src=app.get_asset_url('upSpeed.png'), style={
                                     "margin": "0 auto",
                                     "display": "block",
                                     "borderRadius": "1vw",
                                     "position": "relative",
                                     "zIndex": "999",
                                 })
-image2 = html.Img(src=app.get_asset_url('down.png'), style={
+image2 = html.Img(src=app.get_asset_url('downSpeed.png'), style={
                                      "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
                                      "position": "relative",
                                      "zIndex": "999",
                                  })
-image3 = html.Img(src=app.get_asset_url('highinc.png'), style={
+image3 = html.Img(src=app.get_asset_url('highIncome.png'), style={
                                      "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
                                      "position": "relative",
                                      "zIndex": "999",
                                  })
-image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
+image4 = html.Img(src=app.get_asset_url('lowIncome.png'), style={
                                         "margin": "0 auto",
                                         "borderRadius": "1vw",
                                         "display": "block",
@@ -158,7 +158,7 @@ image4 = html.Img(src=app.get_asset_url('lowinc.png'), style={
 
 # Background image
 
-BGimage = html.Img(src=app.get_asset_url('orlando-981748_1920.jpg'), style={
+BGimage = html.Img(src=app.get_asset_url('orlando-cityscape.jpg'), style={
                                          "alignment": "center",
                                          "bottom": "0px",
                                          "opacity": "25%",
