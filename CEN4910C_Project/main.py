@@ -9,13 +9,21 @@ import pandas as pd
 from dash.dependencies import Input, Output, State
 import json
 from datetime import datetime
+from waitress import serve
+
+import os
+
+
+#Choropleth color options Changes Here
+colorscales = px.colors.named_colorscales()
+
 
 # System Date and Time
 now = datetime.now()
 dt = now.strftime("%d/%m/%Y %H:%M:%S")
 
 # Read geojson files
-d1 = open(r"backend_resources\results\orlando_averaged_2019-01-01.geojson")
+d1 = open(r"backend_resources/results/orlando_averaged_2019-01-01.geojson")
 data = json.load(d1)
 d2 = data["features"][0]
 
@@ -40,7 +48,11 @@ def Neigh_names():
 # ----------Dash App---------------------------------------
 
 app = dash.Dash(__name__)
+app.title = "Digital Divide" # set the app title in the browser tab
 
+# a favicon is the 16x16px icon displayed in the browser tab
+# Orlando's fountain icon may only be used with permission from the city
+# app._favicon = ("path_to/icon.ico")
 
 # reset button
 reset_data = html.A(html.Button('Click Here to Reset Map',
@@ -69,14 +81,10 @@ logo = html.Img(src=app.get_asset_url('DigitalDivide_logo_320x240.png'), style={
 
 # Banner with titles and reset button
 banner = html.Div([
-    html.H3(#["The Digital Divide"],
-            logo,
+    html.H3(dcc.Link(logo, href='/'),
             className="titleName",
             style={
             "position": "relative",
-            #"text-align": "left",
-            #"fontSize": "30pt",
-            #"color": "#8f9daa",
             "left": "60",
             }
             ),  # ------- First Title
@@ -87,9 +95,11 @@ banner = html.Div([
             "position": "relative",
             "left": "256px",
             "top": "10px",
+            "marginRight": "300px",
             "fontSize": "25pt",
             "font-family": "Trebuchet MS",
-            "color": "#8f9daa",
+            "color": "white",
+            "opacity": "67%",
             "max-width": "80%"
             }
             ),  # -----------Second Title
@@ -117,37 +127,33 @@ id="headerDiv",
 
 # images of graphs
 
-image = html.Img(src=app.get_asset_url('upSpeed.png'), style={
-                                    "position": "absolute",
-                                    "left": "600.5px",
-                                    "right": "842.5px",
-                                    "top": "860px",
-                                    "borderRadius": "1vw",
+image = html.Img(src='assets/upSpeed.png', style={
+                                    "margin": "0 auto",
                                     "display": "block",
+                                    "borderRadius": "1vw",
+                                    "position": "relative",
+                                    "zIndex": "999",
                                 })
 image2 = html.Img(src=app.get_asset_url('downSpeed.png'), style={
-                                     "position": "absolute",
-                                     "left": "583.5px",
-                                     "right": "842.5px",
-                                     "top": "1150px",
+                                     "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
+                                     "position": "relative",
+                                     "zIndex": "999",
                                  })
 image3 = html.Img(src=app.get_asset_url('highIncome.png'), style={
-                                     "position": "absolute",
-                                     "left": "600.5px",
-                                     "right": "842.5px",
-                                     "top": "1440px",
+                                     "margin": "0 auto",
                                      "borderRadius": "1vw",
                                      "display": "block",
+                                     "position": "relative",
+                                     "zIndex": "999",
                                  })
 image4 = html.Img(src=app.get_asset_url('lowIncome.png'), style={
-                                        "position": "absolute",
-                                        "left": "600.5px",
-                                        "right": "842.5px",
-                                        "top": "1780px",
+                                        "margin": "0 auto",
                                         "borderRadius": "1vw",
                                         "display": "block",
+                                        "position": "relative",
+                                        "zIndex": "999",
                                  })
 
 # Background image
@@ -157,9 +163,10 @@ BGimage = html.Img(src=app.get_asset_url('orlando-cityscape.jpg'), style={
                                          "bottom": "0px",
                                          "opacity": "25%",
                                          "position": "fixed",
-                                         "width": "100%",
-                                         "height": "auto"
+                                         "min-height": "100%",
+                                         "zIndex": "0",
                                  })
+
 # ---Quarter Drop Down element
 
 drop_down = html.Div([
@@ -183,16 +190,28 @@ drop_down = html.Div([
         searchable=True,
         placeholder="Select a Quarter from drop-down",
                     style={"margin": "10px,0,10px,0",
-                            "width": "200px", "color": "grey",
+                            "width": "190px", "color": "grey",
                            "font-family": "Trebuchet MS"},
     )],
     style={
     "borderColor": "black",
     "display": "inline-block",
-    "marginLeft": "50px"
 },
 )
-
+#Changes Here
+colors = html.Div([
+    dcc.Dropdown(
+        id="colors",
+        options=colorscales,
+        value='tempo',
+        style={
+            "width": "190px",
+            "color": "grey",
+            "font-family": "Trebuchet MS"
+        },
+        placeholder="Colors"
+    )
+])
 # Download and Upload speed dropdown element
 speed = html.Div([
     dcc.Dropdown(
@@ -207,8 +226,7 @@ speed = html.Div([
         searchable=True,
         placeholder="Upload/Download Select",
         style={
-            "marginLeft": "10px",
-            "width": "200px",
+            "width": "190px",
             "color": "grey",
             "font-family": "Trebuchet MS"
         },
@@ -216,7 +234,6 @@ speed = html.Div([
     style={
     "borderColor": "black",
     "display": "inline-block",
-    "marginLeft": "50px"
 },
 )
 
@@ -230,9 +247,8 @@ NeighHood_names = html.Div([
         searchable=True,
         placeholder="Select neighborhood",
         style={
-            "width": "200px",
+            "width": "190px",
             "color": "grey",
-            "marginLeft": "10px",
             "font-family": "Trebuchet MS"
         },
     )
@@ -240,7 +256,6 @@ NeighHood_names = html.Div([
     style={
     "borderColor": "red",
     "display": "inline-block",
-    "marginLeft": "100px"
 })
 
 
@@ -249,14 +264,9 @@ NeighHood_names = html.Div([
 final_map = html.Div([dcc.Graph(id="map")],
                      style={
 
-
-    "position": "absolute",
-    "top": "354px",
-    "left": "387.5px",
-    "right": "387.5px",
-    "width": "910px",
+    "width": "911px",
     "height": "300px",
-    "display": "inline-block"
+    "margin": "0 auto"    
 
 })
 
@@ -265,33 +275,73 @@ final_map = html.Div([dcc.Graph(id="map")],
 
 container_0 = html.Div([
     NeighHood_names,
-    drop_down, speed,
-    html.Br()
+    drop_down, speed,colors #Changes Here
 ],
     style={
-    "position": "absolute",
-    "top": "274px",
-    "left": "338px",
-    "right": "295px",
+    "display": "flex",
+    "justify-content": "space-evenly",
     "width": "911px",
     "backgroundColor": "#192734",
     "paddingTop": "20px",
     "paddingBottom": "20px",
     "border-width": "thick thick thick thick",
-    "display": "inline-block",
-    "marginLeft": "50px",
+    "margin": "0 auto",
+    "position": "relative", # keeps background color intact
+    "zIndex": "999",
+    },
+    id="heatMap"
+    )
 
+container_3 = html.Div([
+    image, image2, image3, image4
+],
+    style={
+    "display": "flex",
+    "flex-direction": "column",
+    "row-gap": "30px",
+    "margin": "50px",
+    "zIndex": "999",
 })
+
 
 # Last updated element 
 
 Last_updated = html.Div(
     id='date', style={"position": "absolute",
                       "marginLeft": "50px",
-                      "marginTop": "10px",
                       "display": "none",
-                      "color": "#8f9daa",
+                      "marginTop": "10px",
+                      "color": "white",
+                      "opacity": "67%",
                       "font-family": "Trebuchet MS"})
+
+
+# Graphs link
+graphs = html.H3(["VIEW GRAPHS"],
+                 className="graphsLink",
+                 style={
+                 "position": "relative",
+                 "top": "160px",
+                 "width": "100%",
+                 "textAlign": "center",
+                 "fontSize": "25pt",
+                 "font-family": "Trebuchet MS",
+                 "color": "white",
+                 "opacity": "67%",
+                 })
+
+# Home link
+home = html.H3(["BACK"],
+               className="homeLink",
+               style={
+               "position": "relative",
+               "width": "100%",
+               "textAlign": "center",
+               "fontSize": "25pt",
+               "font-family": "Trebuchet MS",
+               "color": "white",
+               "opacity": "67%",
+               })
 
 
 
@@ -309,19 +359,7 @@ container_1 = html.Div([
         html.Br(),
         container_0,
         final_map,
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        html.Br(),
-        image,
-        image2,
-        image3,
-        image4
+        dcc.Link(graphs, href='/graphs'),
 
     ],
         style={
@@ -331,7 +369,33 @@ container_1 = html.Div([
         "right": "0px",
         "bottom": "0px",
         "width": "100%",
-        "height": "2200px",
+        "backgroundColor": "#15202B",
+        "margin": "0",
+        "padding": "0"
+    },
+    id = "bodyBackgroundColor"
+    ),
+
+    
+])
+
+container_2 = html.Div([
+    html.Div([
+        BGimage,
+        banner,
+        container_3,
+        dcc.Link(home, href='/'),
+        html.Br(),
+
+    ],
+        style={
+        "position": "absolute",
+        "top": "0px",
+        "left": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "width": "100%",
+        "height": "1607px",
         "backgroundColor": "#15202B",
         "margin": "0",
         "padding": "0"
@@ -343,17 +407,36 @@ container_1 = html.Div([
 ])
 
 # Final Layout
-app.layout = html.Div([container_1])
+app.layout = html.Div([
+    dcc.Location(id='url', refresh=False),
+    html.Div(id='page-content')
+])
+
+home_page = html.Div([container_1])
+
+graphs_layout = html.Div([container_2])
+
+@app.callback(Output('graphs-content', 'children'),
+                  [Input('url', 'pathname')])
+
+@app.callback(Output('page-content', 'children'),
+              [Input('url', 'pathname')])
+def display_page(pathname):
+    if pathname == '/graphs':
+        return graphs_layout
+    else:
+        return home_page
+
 
 # App callback
 @app.callback(
     [Output('map', "figure"), Output('date', "children")],
-    [Input('time', 'value'), Input("Neigh_names",
-                                   "value"), Input("internet", "value")],
+    [Input('time', 'value'), Input("Neigh_names",                        #Changes Here
+                                   "value"), Input("internet", "value"), Input("colors", "value")],
     prevent_initial_callbacks=True
 )
 # call back function
-def update_map(qrt, name, int_speed):
+def update_map(qrt, name, int_speed, colors):
     d1 = open(r"backend_resources\results\orlando_averaged_" + qrt + ".geojson")
     data = json.load(d1)
     base = pd.json_normalize(data, record_path=['features'])
@@ -365,7 +448,7 @@ def update_map(qrt, name, int_speed):
     # Plotly Choropleth Graph
     fig = px.choropleth_mapbox(base, geojson=data, locations="NeighName", color=int_speed, featureidkey="properties.NeighName",
                                center={"lat": 28.488137, "lon": -81.331054},
-                               color_continuous_scale="tempo",
+                               color_continuous_scale=colors, #Changes Here
                                mapbox_style="carto-positron", zoom=10)
     fig.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
@@ -376,4 +459,5 @@ def update_map(qrt, name, int_speed):
     return fig, dt
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, dev_tools_ui=False)
+    serve(app)
