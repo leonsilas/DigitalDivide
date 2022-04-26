@@ -127,7 +127,7 @@ id="headerDiv",
 
 # images of graphs
 
-image = html.Img(src='assets/upSpeed.png', style={
+image = html.Img(src=app.get_asset_url('upSpeed.png'), style={
                                     "margin": "0 auto",
                                     "display": "block",
                                     "borderRadius": "1vw",
